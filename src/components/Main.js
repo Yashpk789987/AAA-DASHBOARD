@@ -1,7 +1,7 @@
 import React from 'react'
 import DashBoard from './DashBoard/index'
 import Login from './Login'
-import { Switch , Route , Link  } from 'react-router-dom'
+import { Switch , Route , Link  ,  HashRouter as Router  } from 'react-router-dom'
 
 export default class Main extends React.Component {
   
@@ -12,12 +12,13 @@ export default class Main extends React.Component {
   componentDidMount() {}
   render() {
     return (
-     <>
-     <Switch>
-          <Route exact path = '/login' render = {(props) => <Login {...props} />} />
-          <Route path = '/dashboard' render = {(props) => <DashBoard {...props} />} />
-      </Switch>  
-      </>
+     <Router basename = {process.env.PUBLIC_URL}> 
+      <Switch>
+            <Route exact path = '/' render = {(props) => <DashBoard {...props} />} />
+            <Route exact path = '/login' render = {(props) => <Login {...props} />} />
+            <Route path = '/dashboard' render = {(props) => <DashBoard {...props} />} />
+        </Switch>  
+      </Router>
     );
   }
 }

@@ -66,7 +66,7 @@ export default class UploadPdf extends React.Component {
           this.setState({ showModal : true , modal_title : 'Requirements' , modal_message : 'Please Upload Pdf File'})
         }
         else {
-            this.setState({ UploadingData : true})
+            this.setState({ UploadingData : true , fileprogress : 0})
             let formData = new FormData()
             formData.append("SendData" , JSON.stringify(this.state))
             formData.append("pdf" , this.state.pdf)

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Redirect , Link , Route , Switch ,  BrowserRouter as Router} from 'react-router-dom'
+import { Redirect , Link , Route , Switch ,  HashRouter as Router} from 'react-router-dom'
 import {
     Layout, Menu,  Icon,
 } from 'antd';
@@ -16,7 +16,7 @@ export default class PdfManaging extends React.Component {
     if(localStorage.getItem('authenticated') === "true"){  
        let match = this.props.match   
        return (
-        <Router>   
+        <Router basename = {process.env.PUBLIC_URL}>   
             <Layout>
             <Sider width={"20%"} style={{ background: '#fff' }}>
                 <Menu
@@ -41,7 +41,7 @@ export default class PdfManaging extends React.Component {
                 </Switch>
             </Content>
             </Layout>
-        </Router>
+        </Router> 
        )
     }
     else {

@@ -1,7 +1,8 @@
 import React from 'react'
 import WorkSheets from '../WorkSheets/index'
 import PdfManaging from '../PdfManaging/index'
-import { Redirect , Link , Route , Switch ,  BrowserRouter as Router} from 'react-router-dom'
+import Test from '../Test/index'
+import { Redirect , Link , Route , Switch ,  HashRouter as Router  } from 'react-router-dom'
 import {
     Layout, Menu,  Icon,
 } from 'antd';
@@ -12,11 +13,16 @@ const { Header } = Layout;
 
 
 export default class DashBoard extends React.Component {
+  componentWillMount(){
+      if(this.props.match.url === '/'){
+        this.props.history.push('/dashboard')
+      }
+  }  
   render() {
     if(localStorage.getItem('authenticated') === "true"){  
        let match = this.props.match   
        return (
-        <Router>   
+        <Router basename = {process.env.PUBLIC_URL} >   
             <Layout>
                 <Header className="header">
                 <div className="logo" />
@@ -33,7 +39,7 @@ export default class DashBoard extends React.Component {
                 </Header>
                 <Switch>
                     <Route  path = {`${match.url}/worksheets`} render = {props => <WorkSheets {...props} />} />
-                    <Route  path = {`${match.url}/tests`} render = {props => <h1>Tests</h1>} />
+                    <Route  path = {`${match.url}/tests`} render = {props => <Test {...props} />} />
                     <Route  path = {`${match.url}/updates`} render = {props => <h1>Updates</h1>} />
                     <Route  path = {`${match.url}/pdfs`} render = {props => <PdfManaging {...props} />} />
                 </Switch>

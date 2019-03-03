@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Redirect , Link , Route , Switch ,  BrowserRouter as Router} from 'react-router-dom'
+import { Redirect , Link , Route , Switch ,  HashRouter as Router} from 'react-router-dom'
 import AddCategory from './AddCategory/index'
 import AddSubCategory from './AddSubCategory/index'
 import AddQuestions from './AddQuestion/index'
@@ -19,7 +19,7 @@ export default class WorkSheets extends React.Component {
     if(localStorage.getItem('authenticated') === "true"){  
        let match = this.props.match   
        return (
-        <Router>   
+        <Router  basename = {process.env.PUBLIC_URL} >   
             <Layout>
             <Sider width={"20%"} style={{ background: '#fff' }}>
                 <Menu
