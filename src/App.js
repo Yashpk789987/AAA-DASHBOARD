@@ -11,7 +11,9 @@ export default class App extends React.Component {
     super(props)
     this.state = {}
   }
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(new Date())
+  }
   render() {
     return (
       <Main />  
