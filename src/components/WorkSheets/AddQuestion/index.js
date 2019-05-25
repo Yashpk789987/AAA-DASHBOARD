@@ -6,6 +6,8 @@ import {
  
 import Alert from '../../Alert'
 
+import { encoded_data } from '../../../encoded_data'
+
 const { TextArea } = Input;
 const Option = Select.Option;
 
@@ -72,21 +74,42 @@ export default class AddQuestion extends React.Component {
 
 
     handleChange = (event) => {
-      this.setState({ [event.target.name] : event.target.value })
+        let found = false ;
+        for(let i = 0 ; i < encoded_data.length ; i++){
+          if(event.target.value.indexOf(encoded_data[i].name) !== -1){
+            found = true
+            this.setState({ [event.target.name] : event.target.value.replace(encoded_data[i].name,encoded_data[i].js_code) })  
+            break ;
+          }
+        }
+        if(!found){
+          this.setState({ [event.target.name] : event.target.value })  
+        }
     }
 
     handleOptionChange = (index , event) => {
-        event.persist()
-        let object = Object.assign(this.state.options[index] , { [event.target.name] : event.target.value})
-        this.setState(state => ({ [state.options[index]] : object}))
+      event.persist();
+      let object = {};
+      let found = false ;
+      for(let i = 0 ; i < encoded_data.length ; i++){
+        if(event.target.value.indexOf(encoded_data[i].name) !== -1){
+          found = true
+          object = Object.assign(this.state.options[index] , { [event.target.name] : event.target.value.replace(encoded_data[i].name,encoded_data[i].js_code)})
+          break ;
+        }
+      }
+      if(!found){
+         object = Object.assign(this.state.options[index] , { [event.target.name] : event.target.value})
+      }
+      this.setState(state => ({ [state.options[index]] : object}))
     }
-    
+  
+
     handleSelectChange = (value) => {
       this.setState({ sub_category_id : value })
     }
     
     handleSubmit = (e) => {
-        
         if(this.validateForm() === true){
           let custome_url = `questions/add_without_image/${endurl}`
           this.setState({ UploadingData : true})
@@ -246,8 +269,8 @@ class QuestionOption extends React.Component {
       <Form.Item label = {`Option ${this.props.index + 1}`}
       {...formItemLayout}>
       <Row>
-          <Col span={10}><Input size="large" name = "english_text" placeholder="Type In English" onChange = {(event) => this.props.handleOptionChange(this.props.index,event)} /></Col>
-          <Col span={10} offset={1}><Input size="large" name = "hindi_text" placeholder="Type In Hindi" onChange = {(event) => this.props.handleOptionChange(this.props.index,event)} /></Col>
+          <Col span={10}><Input value = {this.props.option.english_text} size="large" name = "english_text" placeholder="Type In English" onChange = {(event) => this.props.handleOptionChange(this.props.index,event)} /></Col>
+          <Col span={10} offset={1}><Input value = {this.props.option.hindi_text} size="large" name = "hindi_text" placeholder="Type In Hindi" onChange = {(event) => this.props.handleOptionChange(this.props.index,event)} /></Col>
       </Row>
     </Form.Item>
      )

@@ -7,6 +7,7 @@ import AddQuestions from './AddQuestion/index'
 import {
     Layout, Menu,  Icon,
 } from 'antd';
+import AllSubCategory from './AllSubCategory/index';
 
 
 const { SubMenu } = Menu;
@@ -35,7 +36,7 @@ export default class WorkSheets extends React.Component {
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="folder-open" />Sub Categories</span>}>
                     <Menu.Item key="1"><Link to = {`${match.url}/add_sub_category`} >Add Sub Category</Link></Menu.Item>
-                    <Menu.Item key="2">All Sub Categories</Menu.Item>
+                    <Menu.Item key="2"><Link to = {`${match.url}/all_sub_categories`} >All Sub Categories</Link></Menu.Item>
                     <Menu.Item key="3">Edit Sub  Category</Menu.Item>
                     <Menu.Item key="4">Delete Sub  Category</Menu.Item>
                 </SubMenu>
@@ -52,6 +53,7 @@ export default class WorkSheets extends React.Component {
                     <Route  path = {`${match.url}/add_category`} render = {props => <AddCategory {...props} />} />
                     <Route  path = {`${match.url}/add_sub_category`} render = {props => <AddSubCategory {...props}/>} />
                     <Route  path = {`${match.url}/add_questions`} render = {props => <AddQuestions {...props}/>} />
+                    <Route  path = {`${match.url}/all_sub_categories`} render = {props => <AllSubCategory {...props} /> } />
                 </Switch>
             </Content>
             </Layout>

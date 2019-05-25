@@ -13,7 +13,7 @@ export default class Main extends React.Component {
   render() {
     return (
      <Router basename = {process.env.PUBLIC_URL}> 
-      <Switch>
+        <Switch>
             <Route exact path = '/' render = {(props) => <DashBoard {...props} />} />
             <Route exact path = '/login' render = {(props) => <Login {...props} />} />
             <Route path = '/dashboard' render = {(props) => <DashBoard {...props} />} />
