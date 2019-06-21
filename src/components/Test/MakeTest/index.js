@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Form, Input, Button, Row, Col, TimePicker, DatePicker } from 'antd';
+import { Switch, Input, Button, Row, Col, TimePicker, DatePicker } from 'antd';
 
 import { baseurl, endurl } from '../../../baseurl';
 import Alert from '../../Alert.js';
@@ -24,6 +24,8 @@ export default class AddCategory extends React.Component {
       open_commence_time: false,
       open_end_time: false,
       end_time: '',
+      set_password: true,
+      shuffle_required: true,
       test_created: false,
       created_test: {}
     };
@@ -168,7 +170,6 @@ export default class AddCategory extends React.Component {
   ///////////////////// UPLOAD DATA ///////////////////////////////////////////////
 
   render() {
-    console.log(this.state);
     const { formLayout } = this.state;
     const formItemLayout =
       formLayout === 'horizontal'
@@ -189,8 +190,6 @@ export default class AddCategory extends React.Component {
           <h1> Make Test </h1>
         </center>
         <br />
-        {/* <Form layout={formLayout}> */}
-
         <Row>
           <Col span={10}>
             <h3> Test Title In English</h3>
@@ -285,6 +284,28 @@ export default class AddCategory extends React.Component {
             />
           </Col>
         </Row>
+        <br />
+        <Row>
+          <Col span={10}>
+            <h3> Set Password For Test (Yes/No) </h3>
+            <Switch
+              defaultChecked
+              onChange={value => {
+                this.setState({ set_password: value });
+              }}
+            />
+          </Col>
+          <Col offset={2} span={10}>
+            <h3> Do You Want To Shuffle Questions(Yes/No) </h3>
+            <Switch
+              defaultChecked
+              onChange={value => {
+                this.setState({ shuffle_required: value });
+              }}
+            />
+          </Col>
+        </Row>
+        <br />
         <br />
         <br />
         {this.state.UploadingData === true ? (

@@ -80,6 +80,24 @@ export default class ShowTestById extends React.Component {
               </Col>
             </Row>
             <br />
+            <Row style={{ paddingLeft: '10%' }}>
+              <Col span={10} offset={2}>
+                <h3>Is Password Set For This Test ??</h3>{' '}
+                &nbsp;&nbsp;&nbsp;&nbsp;{' '}
+                {test.set_password === 'true'
+                  ? 'Yes'.toUpperCase()
+                  : 'No'.toUpperCase()}
+              </Col>
+              <Col span={10} offset={2}>
+                <h3>Will Questions Be In Shuffle Order ??</h3>
+                &nbsp;&nbsp;&nbsp;&nbsp;{' '}
+                {test.shuffle_required === 'true'
+                  ? 'Yes'.toUpperCase()
+                  : 'No'.toUpperCase()}
+              </Col>
+            </Row>
+            <br />
+            <br />
             <br />
             <Row style={{ paddingLeft: '10%' }}>
               <Col span={10} offset={2}>
