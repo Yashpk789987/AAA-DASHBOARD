@@ -53,9 +53,6 @@ class AllTestComponent extends React.Component {
     );
 
     var range = end_date_time.diff(start_date_Time, 'seconds');
-    console.log('Current Date Time', currentDateTime);
-    console.log('Start Time :', start_date_Time);
-    console.log('Difference ', difference_with_start_time);
     if (difference_with_start_time < 0) {
       return 'Yet To Start';
     } else if (difference_with_start_time > range) {

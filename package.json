@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/line": "^0.59.1",
     "antd": "^3.13.2",
     "axios": "^0.18.0",
     "moment": "^2.24.0",

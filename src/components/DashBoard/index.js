@@ -3,6 +3,8 @@ import WorkSheets from '../WorkSheets/index';
 import PdfManaging from '../PdfManaging/index';
 import UpdateAuthorize from '../UpdateAuthorize';
 import Test from '../Test/index';
+import ManageStudents from '../ManageStudents/index';
+
 import {
   Redirect,
   Link,
@@ -10,8 +12,10 @@ import {
   Switch,
   HashRouter as Router
 } from 'react-router-dom';
+
 import { Layout, Menu, Icon } from 'antd';
 import './index.css';
+import Enquiry from '../Enquiry';
 
 const { Header } = Layout;
 
@@ -58,6 +62,18 @@ export default class DashBoard extends React.Component {
                     Manage Pdf Files
                   </Link>
                 </Menu.Item>
+                <Menu.Item key='5'>
+                  <Link to={`${match.url}/students`}>
+                    <Icon type='sync' />
+                    Manage Students
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key='6'>
+                  <Link to={`${match.url}/enquiry`}>
+                    <Icon type='sync' />
+                    Enquiries
+                  </Link>
+                </Menu.Item>
               </Menu>
             </Header>
             <Switch>
@@ -76,6 +92,14 @@ export default class DashBoard extends React.Component {
               <Route
                 path={`${match.url}/pdfs`}
                 render={props => <PdfManaging {...props} />}
+              />
+              <Route
+                path={`${match.url}/students`}
+                render={props => <ManageStudents {...props} />}
+              />
+              <Route
+                path={`${match.url}/enquiry`}
+                render={props => <Enquiry {...props} />}
               />
             </Switch>
           </Layout>

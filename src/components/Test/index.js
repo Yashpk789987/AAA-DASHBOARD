@@ -15,6 +15,7 @@ import MakeTestWrapper from './MakeTestWrapper/index';
 import AllTest from './AllTest/index';
 import { Layout, Menu, Icon } from 'antd';
 import Results from './Results';
+import Set_Demo_Test from './Set_Demo_Test/index';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -54,9 +55,14 @@ export default class Test extends React.Component {
                     <Link to={`${match.url}/edit_test`}>Edit Test</Link>
                   </Menu.Item>
                   <Menu.Item key='5'>
-                    <Link to={`${match.url}/test_status`}>Test Status</Link>
+                    <Link to={`${match.url}/set_demo_test`}>
+                      Set Demo Test{' '}
+                    </Link>
                   </Menu.Item>
                   <Menu.Item key='6'>
+                    <Link to={`${match.url}/test_status`}>Test Status</Link>
+                  </Menu.Item>
+                  <Menu.Item key='7'>
                     <Link to={`${match.url}/test_history`}>Tests History</Link>
                   </Menu.Item>
                 </SubMenu>
@@ -79,6 +85,10 @@ export default class Test extends React.Component {
                 <Route
                   path={`${match.url}/edit_test`}
                   render={props => <EditTest {...props} />}
+                />
+                <Route
+                  path={`${match.url}/set_demo_test`}
+                  render={props => <Set_Demo_Test {...props} />}
                 />
                 <Route
                   path={`${match.url}/test_status`}
