@@ -9,32 +9,37 @@ export default class Set_Demo_Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tests: [],
+      pdf_categories: [],
       updating_data: false,
-      selected_test_ids: []
+      selected_demo_pdf_categories: []
     };
   }
 
   componentDidMount() {
-    fetch(`${baseurl}tests/fetch_all_test/${endurl}`)
+    fetch(
+      `${baseurl}categories_and_sub_categories/fetch_all_sub_categories/${endurl}`
+    )
       .then(res => res.json())
-      .then(data => this.setState({ tests: data }))
+      .then(data => this.setState({ pdf_categories: data }))
       .catch(err => console.log(err));
   }
 
   onSelectTest = async _id_array => {
-    this.setState({ selected_test_ids: _id_array });
+    this.setState({ selected_demo_pdf_categories: _id_array });
   };
 
   handleSave = () => {
     this.setState({ updating_data: true });
-    fetch(`${baseurl}tests/set_demo_test/${endurl}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state.selected_test_ids)
-    })
+    fetch(
+      `${baseurl}categories_and_sub_categories/set_demo_pdf_category/${endurl}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state.selected_demo_pdf_categories)
+      }
+    )
       .then(res => res.json())
       .then(data => {
         console.log(data);
@@ -48,7 +53,7 @@ export default class Set_Demo_Test extends React.Component {
       <div style={{ paddingTop: '5%' }}>
         <Row style={{ paddingLeft: '10%' }}>
           <Col span={10} offset={2}>
-            <h3>Choose Test For Demo Test </h3>
+            <h3>Choose PDFS For Demo PDF </h3>
             <Select
               mode='multiple'
               showSearch
@@ -62,10 +67,10 @@ export default class Set_Demo_Test extends React.Component {
                   .indexOf(input.toLowerCase()) >= 0
               }
             >
-              {this.state.tests.map((item, key) => {
+              {this.state.pdf_categories.map((item, key) => {
                 return (
                   <Option key={item._id} value={item._id}>
-                    {item.english_title}
+                    {item.english_name}
                   </Option>
                 );
               })}
