@@ -3,6 +3,7 @@ import { Row, Col, Button, Spin } from 'antd';
 import moment from 'moment';
 import AddQuestion from '../AddQuestion/index';
 import { baseurl, endurl } from '../../../baseurl';
+import AllQuestions from '../AllQuestionsList';
 export default class ShowTestById extends React.Component {
   constructor(props) {
     super(props);
@@ -134,6 +135,7 @@ export default class ShowTestById extends React.Component {
               })}
             </div>
           )}
+          <AllQuestions test_id={this.props.match.params.id} />
         </>
       );
     }

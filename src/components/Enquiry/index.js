@@ -31,6 +31,10 @@ function EnquiryTable(props) {
       <table className='table'>
         <thead className='thead-light'>
           <tr>
+            <th>Count : </th>
+            <td>{props.enquiries.length}</td>
+          </tr>
+          <tr>
             {Object.keys(props.enquiries[0]).map((item, key) => {
               return (
                 <th
