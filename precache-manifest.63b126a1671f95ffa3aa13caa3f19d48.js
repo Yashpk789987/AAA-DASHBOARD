@@ -4,23 +4,23 @@ self.__precacheManifest = [
     "url": "/AAA_DASHBOARD/static/js/runtime~main.3024a60b.js"
   },
   {
-    "revision": "b3761b59d91050f46fdb",
-    "url": "/AAA_DASHBOARD/static/js/main.b3761b59.chunk.js"
+    "revision": "a088e6ca9daed0d8f693",
+    "url": "/AAA_DASHBOARD/static/js/main.a088e6ca.chunk.js"
   },
   {
-    "revision": "fd2e652b69eda0fba1e5",
-    "url": "/AAA_DASHBOARD/static/js/2.fd2e652b.chunk.js"
+    "revision": "fda8a184ae2a37cf58a6",
+    "url": "/AAA_DASHBOARD/static/js/2.fda8a184.chunk.js"
   },
   {
-    "revision": "b3761b59d91050f46fdb",
+    "revision": "a088e6ca9daed0d8f693",
     "url": "/AAA_DASHBOARD/static/css/main.d1dc6e96.chunk.css"
   },
   {
-    "revision": "fd2e652b69eda0fba1e5",
+    "revision": "fda8a184ae2a37cf58a6",
     "url": "/AAA_DASHBOARD/static/css/2.5623f183.chunk.css"
   },
   {
-    "revision": "b1a9f4da0602e59f921d41ba74175b35",
+    "revision": "ba6edc588fce626ecb2ada5c5c53fa91",
     "url": "/AAA_DASHBOARD/index.html"
   }
 ];
