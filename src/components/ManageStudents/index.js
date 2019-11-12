@@ -11,6 +11,8 @@ import {
   Link
 } from 'react-router-dom';
 import UpdateStudentPermissions from './UpdateStudentPermissions';
+import UpdatePaymentStatus from '../Update_Payment_Status';
+import ManageCashPayment from '../ManageStudents/ManageCashPayment';
 
 function CustomRow(props) {
   return (
@@ -23,6 +25,18 @@ function CustomRow(props) {
           <Link to={`${props.match.url}/${props.row._id}`}>
             Click To See And Edit
           </Link>
+        </Button>
+      </td>
+      <td>
+        <Button
+          type='primary'
+          size={'large'}
+          onClick={() => {
+            props.set_student_id(props.row._id);
+            props.make_payment_visible();
+          }}
+        >
+          Create New Payment
         </Button>
       </td>
     </tr>
@@ -61,11 +75,22 @@ function StudentsTable(props) {
             <th style={{ position: 'sticky', top: 0, zIndex: 10 }} scope='col'>
               Permissions
             </th>
+            <th style={{ position: 'sticky', top: 0, zIndex: 10 }} scope='col'>
+              New Cash Payment
+            </th>
           </tr>
         </thead>
         <tbody>
           {props.students.map((item, key) => {
-            return <CustomRow match={props.match} row={item} key={key} />;
+            return (
+              <CustomRow
+                set_student_id={props.set_student_id}
+                make_payment_visible={props.make_payment_visible}
+                match={props.match}
+                row={item}
+                key={key}
+              />
+            );
           })}
         </tbody>
       </table>
@@ -78,9 +103,24 @@ class AllStudents extends React.Component {
     super(props);
     this.state = {
       loading: false,
-      students: []
+      students: [],
+      payment_visible: false,
+      selected_student_id: null
     };
   }
+
+  make_payment_visible = () => {
+    this.setState({ payment_visible: true });
+  };
+
+  make_payment_not_visible = () => {
+    this.setState({ payment_visible: false });
+  };
+
+  set_student_id = _id => {
+    this.setState({ selected_student_id: _id });
+  };
+
   componentDidMount() {
     this.setState({ loading: true });
     fetch(`${baseurl}students/show_all/${endurl}`)
@@ -92,11 +132,21 @@ class AllStudents extends React.Component {
   }
   render() {
     return (
-      <StudentsTable
-        match={this.props.match}
-        loading={this.state.loading}
-        students={this.state.students}
-      />
+      <div style={{ paddingTop: '5%' }}>
+        <UpdatePaymentStatus />
+        <ManageCashPayment
+          _id={this.state.selected_student_id}
+          payment_visible={this.state.payment_visible}
+          make_payment_not_visible={this.make_payment_not_visible}
+        />
+        <StudentsTable
+          make_payment_visible={this.make_payment_visible}
+          set_student_id={this.set_student_id}
+          match={this.props.match}
+          loading={this.state.loading}
+          students={this.state.students}
+        />
+      </div>
     );
   }
 }

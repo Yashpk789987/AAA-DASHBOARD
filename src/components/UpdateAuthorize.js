@@ -55,8 +55,8 @@ export default class UpdateAuthorize extends React.Component {
       );
     } else {
       return (
-        <div style={{ padding: '5%' }}>
-          <h2> Update Credentials </h2>
+        <div style={{ padding: '5%', paddingTop: '10%' }}>
+          <h2 style={{ paddingLeft: '5%' }}> Update Credentials </h2>
           <div style={{ padding: '5%' }}>
             <Row>
               <Col span={10}>

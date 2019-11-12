@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
 import UploadPdf from '../PdfManaging/UploadPdf/index';
-import Set_Demo_Test from '../PdfManaging/Set_Demo_Pdf/index';
+import setDemoTest from '../PdfManaging/Set_Demo_Pdf/index';
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
@@ -20,7 +20,7 @@ export default class PdfManaging extends React.Component {
       let match = this.props.match;
       return (
         <Router basename={process.env.PUBLIC_URL}>
-          <Layout>
+          <Layout style={{ paddingTop: '5%' }}>
             <Sider width={'20%'} style={{ background: '#fff' }}>
               <Menu
                 theme='dark'
@@ -62,7 +62,7 @@ export default class PdfManaging extends React.Component {
                 />
                 <Route
                   path={`${match.url}/set_demo_pdf`}
-                  render={props => <Set_Demo_Test {...props} />}
+                  render={props => <setDemoTest {...props} />}
                 />
                 <Route
                   path={`${match.url}/all_pdfs`}

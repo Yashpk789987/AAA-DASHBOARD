@@ -5,30 +5,59 @@ import { Switch, Input, Button, Row, Col, TimePicker, DatePicker } from 'antd';
 import { baseurl, endurl } from '../../../baseurl';
 import Alert from '../../Alert.js';
 import moment from 'moment';
+import AllQuestionsByTestId from './AllQuestionsByTestId';
 
-export default class AddCategory extends React.Component {
-  constructor() {
-    super();
+export default class UpdateTest extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       formLayout: 'horizontal',
-      english_title: '',
-      hindi_title: '',
+      english_title: props.test.english_title,
+      hindi_title: props.test.hindi_title,
       UploadingData: false,
       showModal: false,
       modal_title: '',
       modal_message: '',
-      test_duration_in_seconds: '',
-      test_commence_date: '',
-      test_commence_time: '',
+      test_duration_in_seconds: props.test.test_allowed_time_in_seconds,
+      test_commence_date: props.test.test_commence_date,
+      test_commence_time: props.test.test_commence_time,
       open_test_duration: false,
       open_commence_time: false,
       open_end_time: false,
-      end_time: '',
-      set_password: true,
-      shuffle_required: true,
+      end_time: props.test.end_time,
+      set_password: props.test.set_password === 'true',
+      shuffle_required: props.test.shuffle_required === 'true',
       test_created: false,
-      created_test: {}
+      created_test: {},
+      test_id: props.test._id
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Any time props.email changes, update state.
+    if (nextProps !== this.props) {
+      this.setState({
+        formLayout: 'horizontal',
+        english_title: nextProps.test.english_title,
+        hindi_title: nextProps.test.hindi_title,
+        UploadingData: false,
+        showModal: false,
+        modal_title: '',
+        modal_message: '',
+        test_duration_in_seconds: nextProps.test.test_allowed_time_in_seconds,
+        test_commence_date: nextProps.test.test_commence_date,
+        test_commence_time: nextProps.test.test_commence_time,
+        open_test_duration: false,
+        open_commence_time: false,
+        open_end_time: false,
+        end_time: nextProps.test.end_time,
+        set_password: nextProps.test.set_password === 'true',
+        shuffle_required: nextProps.test.shuffle_required === 'true',
+        test_created: false,
+        created_test: {},
+        test_id: nextProps.test._id
+      });
+    }
   }
 
   /////////////////  Handling Fields /////////////////////
@@ -98,9 +127,6 @@ export default class AddCategory extends React.Component {
 
   makeShowModalFalse = () => {
     this.setState({ showModal: false, UploadingData: false });
-    if (this.state.test_created === true) {
-      this.props.createTest(this.state.created_test);
-    }
   };
 
   ///////////////////// UPLOAD DATA ///////////////////////////////////////////////
@@ -139,12 +165,12 @@ export default class AddCategory extends React.Component {
       });
     } else {
       this.setState({ UploadingData: true });
-      fetch(baseurl + `tests/create/` + endurl, {
+      fetch(baseurl + `tests/update/` + endurl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(sendData)
+        body: JSON.stringify({ ...sendData, _id: this.props.test._id })
       })
         .then(res => res.json())
         .then(data => {
@@ -173,7 +199,7 @@ export default class AddCategory extends React.Component {
     return (
       <div style={{ padding: '3%' }}>
         <center>
-          <h1> Make Test </h1>
+          <h1> Update Test </h1>
         </center>
         <br />
         <Row>
@@ -200,12 +226,15 @@ export default class AddCategory extends React.Component {
         <Row>
           <Col span={10}>
             <h3> Test Commence Date </h3>
-            <DatePicker onChange={this.handleDate} />
+            <DatePicker
+              onChange={this.handleDate}
+              value={moment(this.state.test_commence_date)}
+            />
           </Col>
           <Col span={10} offset={2}>
             <h3>Test Commence Time</h3>
             <TimePicker
-              defaultValue={moment('00:00:00', 'HH:mm:ss')}
+              defaultValue={moment(this.state.test_commence_time, 'HH:mm:ss')}
               open={this.state.open_commence_time}
               onOpenChange={open =>
                 this.handleOpenChange(open, 'test_commence_time')
@@ -230,7 +259,9 @@ export default class AddCategory extends React.Component {
           <Col span={10}>
             <h3>Test Duration</h3>
             <TimePicker
-              defaultValue={moment('00:00:00', 'HH:mm:ss')}
+              defaultValue={moment.utc(
+                this.state.test_duration_in_seconds * 1000
+              )}
               open={this.state.open_test_duration}
               onOpenChange={open =>
                 this.handleOpenChange(open, 'test_duration')
@@ -252,7 +283,7 @@ export default class AddCategory extends React.Component {
           <Col span={10} offset={2}>
             <h3>Test End Time </h3>
             <TimePicker
-              defaultValue={moment('00:00:00', 'HH:mm:ss')}
+              defaultValue={moment(this.state.end_time, 'HH:mm:ss')}
               open={this.state.open_end_time}
               onOpenChange={open => this.handleOpenChange(open, 'end_time')}
               onChange={(time, timeString) =>
@@ -275,7 +306,7 @@ export default class AddCategory extends React.Component {
           <Col span={10}>
             <h3> Set Password For Test (Yes/No) </h3>
             <Switch
-              defaultChecked
+              defaultChecked={this.state.set_password}
               onChange={value => {
                 this.setState({ set_password: value });
               }}
@@ -284,7 +315,7 @@ export default class AddCategory extends React.Component {
           <Col offset={2} span={10}>
             <h3> Do You Want To Shuffle Questions(Yes/No) </h3>
             <Switch
-              defaultChecked
+              defaultChecked={this.state.shuffle_required}
               onChange={value => {
                 this.setState({ shuffle_required: value });
               }}
@@ -300,7 +331,7 @@ export default class AddCategory extends React.Component {
             type='primary'
             loading={this.state.UploadingData}
           >
-            Creating Test
+            Updating Test .
           </Button>
         ) : (
           <Button
@@ -309,7 +340,7 @@ export default class AddCategory extends React.Component {
             size={'large'}
             onClick={this.handleCreateTest}
           >
-            Create Test
+            Update Test
           </Button>
         )}
         {this.state.showModal === true ? (
@@ -321,6 +352,7 @@ export default class AddCategory extends React.Component {
         ) : (
           <></>
         )}
+        <AllQuestionsByTestId test_id={this.state.test_id} />
       </div>
     );
   }

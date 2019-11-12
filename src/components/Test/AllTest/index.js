@@ -1,6 +1,6 @@
 import React from 'react';
 import { baseurl, endurl } from '../../../baseurl';
-import { List, Button, Skeleton, Text } from 'antd';
+import { List, Skeleton } from 'antd';
 import moment from 'moment';
 import {
   HashRouter as Router,
@@ -64,18 +64,8 @@ class AllTestComponent extends React.Component {
 
   render() {
     let match = this.props.match;
-    const { initLoading, loading, list } = this.state;
-    const loadMore =
-      !initLoading && !loading ? (
-        <div
-          style={{
-            textAlign: 'center',
-            marginTop: 12,
-            height: 32,
-            lineHeight: '32px'
-          }}
-        />
-      ) : null;
+    const { initLoading, list } = this.state;
+
     return (
       <Router basename={process.env.PUBLIC_URL}>
         <div style={{ padding: '5%' }}>

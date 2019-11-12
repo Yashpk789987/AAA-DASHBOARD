@@ -15,10 +15,10 @@ import MakeTestWrapper from './MakeTestWrapper/index';
 import AllTest from './AllTest/index';
 import { Layout, Menu, Icon } from 'antd';
 import Results from './Results';
-import Set_Demo_Test from './Set_Demo_Test/index';
+import setDemoTest from './Set_Demo_Test/index';
 
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 export default class Test extends React.Component {
   render() {
@@ -26,7 +26,7 @@ export default class Test extends React.Component {
       let match = this.props.match;
       return (
         <Router basename={process.env.PUBLIC_URL}>
-          <Layout>
+          <Layout style={{ paddingTop: '5%' }}>
             <Sider width={'20%'} style={{ background: '#fff' }}>
               <Menu
                 theme='dark'
@@ -88,7 +88,7 @@ export default class Test extends React.Component {
                 />
                 <Route
                   path={`${match.url}/set_demo_test`}
-                  render={props => <Set_Demo_Test {...props} />}
+                  render={props => <setDemoTest {...props} />}
                 />
                 <Route
                   path={`${match.url}/test_status`}

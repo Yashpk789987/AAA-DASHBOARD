@@ -5,7 +5,7 @@ import { Row, Col, Select, Button } from 'antd';
 
 const { Option } = Select;
 
-export default class Set_Demo_Test extends React.Component {
+export default class setDemoTest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

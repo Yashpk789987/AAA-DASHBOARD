@@ -70,7 +70,6 @@ export default class Results extends React.Component {
       filtered_tests: [],
       results: [],
       selected_test_id: '',
-      results: [],
       loading_results: false
     };
   }

@@ -1,11 +1,10 @@
 import React from 'react';
 import { baseurl, endurl } from '../../../baseurl';
-import { Form, Input, Button, Select, Row, Col, Icon, Spin } from 'antd';
+import { Form, Input, Button, Row, Col, Icon } from 'antd';
 import { encoded_data } from '../../../encoded_data';
 import Alert from '../../Alert';
 import './index.css';
 const { TextArea } = Input;
-const Option = Select.Option;
 
 export default class AddQuestion extends React.Component {
   constructor(props) {
@@ -285,14 +284,17 @@ export default class AddQuestion extends React.Component {
           <Form.Item {...buttonItemLayout}>
             Attach Image &nbsp; : &nbsp;&nbsp;&nbsp;
             <Button type='primary'>
+              <label for='upload-photo' style={{ paddingTop: '5%' }}>
+                Browse File
+              </label>
               <input
                 type='file'
+                id='upload-photo'
                 onChange={e => this.handleFile(e)}
                 style={{
-                  color: 'white',
-                  backgroundColor: 'transparent',
-                  background: 'transparent',
-                  borderRadius: 5
+                  opacity: 0,
+                  position: 'absolute',
+                  zIndex: -1
                 }}
               />
             </Button>

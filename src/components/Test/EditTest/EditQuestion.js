@@ -1,11 +1,10 @@
 import React from 'react';
 import { baseurl, endurl, fileurl } from '../../../baseurl';
-import { Form, Input, Button, Select, Row, Col, Icon, Spin } from 'antd';
+import { Form, Input, Button, Row, Col } from 'antd';
 import { encoded_data } from '../../../encoded_data';
 import Alert from '../../Alert';
 
 const { TextArea } = Input;
-const Option = Select.Option;
 
 export default class EditQuestion extends React.Component {
   constructor(props) {
@@ -27,12 +26,12 @@ export default class EditQuestion extends React.Component {
   }
 
   componentDidMount() {
-    const { question, options } = this.props;
+    const { question } = this.props;
     this.setState({
       question_id: question.test_question_id,
       english_text: question.english_text,
       hindi_text: question.hindi_text,
-      options: options,
+      options: question.test_options,
       correct_option_index: question.correct_option_index,
       pic_url: question.pic
     });
@@ -112,13 +111,6 @@ export default class EditQuestion extends React.Component {
     if (!found) {
       this.setState({ [event.target.name]: event.target.value });
     }
-  };
-
-  removeOption = option_id => {
-    let new_option_array = this.state.options.filter(option => {
-      return option.option_id != option_id;
-    });
-    this.setState({ options: new_option_array });
   };
 
   handleOptionChange = (index, event) => {
@@ -272,19 +264,17 @@ export default class EditQuestion extends React.Component {
           <div style={{ padding: '5%' }}>
             <Row>
               <Col>
-                <img
-                  alt='No Image Available'
-                  src={`${baseurl}${fileurl}/questions/${this.state.pic_url}`}
-                />
+                {this.state.pic_url === null ? (
+                  <></>
+                ) : (
+                  <img
+                    alt='Failed T Load'
+                    src={`${baseurl}${fileurl}/questions/${this.state.pic_url}`}
+                  />
+                )}
               </Col>
             </Row>
           </div>
-          {/* <div style={{ float: 'right', paddingRight: '10%' }}>
-            <Button type='primary' onClick={this.handleAppendButton}>
-              Add Option
-              <Icon type='plus-square' />
-            </Button>
-          </div> */}
           <br />
           <br />
           {this.state.options.map((option, index) => {
@@ -311,14 +301,17 @@ export default class EditQuestion extends React.Component {
           <Form.Item {...buttonItemLayout}>
             Attach Image &nbsp; : &nbsp;&nbsp;&nbsp;
             <Button type='primary'>
+              <label for='upload-photo' style={{ paddingTop: '5%' }}>
+                Browse File
+              </label>
               <input
                 type='file'
+                id='upload-photo'
                 onChange={e => this.handleFile(e)}
                 style={{
-                  color: 'white',
-                  backgroundColor: 'transparent',
-                  background: 'transparent',
-                  borderRadius: 5
+                  opacity: 0,
+                  position: 'absolute',
+                  zIndex: -1
                 }}
               />
             </Button>
@@ -390,16 +383,6 @@ class QuestionOption extends React.Component {
               }
             />
           </Col>
-          {/* <Col span={5} offset={1}>
-            <Button
-              type='primary'
-              onClick={() =>
-                this.props.removeOption(this.props.option.option_id)
-              }
-            >
-              Remove
-            </Button>
-          </Col> */}
         </Row>
       </Form.Item>
     );

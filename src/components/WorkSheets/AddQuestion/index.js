@@ -229,7 +229,19 @@ export default class AddQuestion extends React.Component {
               <Form.Item {...buttonItemLayout}  >
                 Attach Image &nbsp; : &nbsp;&nbsp;&nbsp;
                 <Button  type="primary" >
-                    <input type = 'file' onChange = {(e) => this.handleFile(e)} style = {{ color : 'white' , backgroundColor : 'transparent' , background : 'transparent' , borderRadius : 5}} />  
+                <label for='upload-photo' style={{ paddingTop: '5%' }}>
+                  Browse File
+                </label>
+                <input
+                  type='file'
+                  id='upload-photo'
+                  onChange={e => this.handleFile(e)}
+                  style={{
+                    opacity: 0,
+                    position: 'absolute',
+                    zIndex: -1
+                  }}
+                />
                 </Button>
               </Form.Item>
               <Form.Item {...buttonItemLayout}>
@@ -262,9 +274,7 @@ class QuestionOption extends React.Component {
               labelCol: { span: 4 },
               wrapperCol: { span: 14 },
             } : null;
-            const buttonItemLayout = formLayout === 'horizontal' ? {
-              wrapperCol: { span: 14, offset: 4 },
-            } : null;
+           
      return(
       <Form.Item label = {`Option ${this.props.index + 1}`}
       {...formItemLayout}>

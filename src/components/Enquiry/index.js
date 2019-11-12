@@ -77,10 +77,12 @@ export default class Enquiry extends React.Component {
   }
   render() {
     return (
-      <EnquiryTable
-        loading={this.state.loading}
-        enquiries={this.state.enquiries}
-      />
+      <div style={{ paddingTop: '5%' }}>
+        <EnquiryTable
+          loading={this.state.loading}
+          enquiries={this.state.enquiries}
+        />
+      </div>
     );
   }
 }
